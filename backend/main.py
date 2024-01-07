@@ -1,13 +1,7 @@
 import joblib
-import pandas as pd
-import json
-import pickle
 from flask import Flask, request, jsonify
 
 model = joblib.load('ada_boost_model.pkl')
-
-# import ada_boost_model  # Import your model
-# loaded_model = joblib.load('model/ada_boost_model.pkl')
 
 app = Flask(__name__)
 
@@ -28,9 +22,7 @@ def predict_stroke():
     features = [gender, age, hypertension, heart_disease, ever_married, work_type, Residence_type, avg_glucose_level, bmi, smoking_status]
     prediction = model.predict([features])
     prediction_list = prediction.tolist() 
-    # data_array = json.loads(data)  # Get the data from the PHP request
-    # prediction = model.predict([[0, 81, 0, 0, 0, 0, 0, 186.21, 29.0, 0]])# Use your model to predict
-    return jsonify({'prediction': prediction_list})  # Return the prediction as JSON
+    return jsonify({'prediction': prediction_list})
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)  # Start the API server
+    app.run(host='0.0.0.0', port=5000)

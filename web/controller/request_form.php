@@ -37,7 +37,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($response) {
         // Assuming the response is JSON
         $decoded = json_decode($response, true);
-        echo 'Prediction: ' . $decoded['prediction'][0];  // Adjust according to your response structure
+        $prediction = $decoded['prediction'][0];  // Adjust according to your response structure
+
+        // Custom message based on prediction
+        if ($prediction == 0) {
+            echo 'You have no stroke.';
+        } elseif ($prediction == 1) {
+            echo 'You have a stroke.';
+        } else {
+            echo 'Invalid prediction value.';
+        }
     } else {
         echo 'Error: No response from API';
     }
